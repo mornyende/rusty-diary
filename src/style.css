@@ -1,0 +1,23 @@
+button.text-button {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+button.text-button:active {
+  background: magenta;
+}
+
+scrolledwindow {
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+textview {
+  padding: 5px;
+}
+
+/*box.entries {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}*/

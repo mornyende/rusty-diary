@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkApplicationWindow" id="window">
+    <property name="title" translatable="yes">Rusty Diary</property>
+    <property name="default-width">400</property>
+    <property name="default-height">480</property>
+    <child>
+      <object class="GtkBox" id="h_box">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkBox" id="cal_box">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkCalendar" id="calendar">
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="save_button">
+                <property name="label">Save entry</property>
+              </object>
+            </child>
+
+          </object>
+        </child>
+
+
+        <child>
+
+          <object class="GtkBox" id="entries">
+            <!--<property name="spacing">10</property>-->
+            <property name="orientation">vertical</property>
+            <!--<child>
+              <object class="GtkButton" id="save_button">
+                <property name="label">Save entry</property>
+              </object>
+            </child>-->
+
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window">
+              <property name="hexpand">True</property>
+              <property name="vexpand">True</property>
+              <property name="has-frame">True</property>
+                <child>
+                  <object class="GtkTextView" id="text_view"/>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window2">
+              <property name="hexpand">True</property>
+              <property name="vexpand">True</property>
+              <property name="has-frame">True</property>
+              <child>
+                <object class="GtkTextView" id="text_view2"/>
+              </child>
+              </object>
+            </child>
+
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
