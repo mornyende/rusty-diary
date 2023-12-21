@@ -30,11 +30,11 @@
           <object class="GtkBox" id="entries">
             <!--<property name="spacing">10</property>-->
             <property name="orientation">vertical</property>
-            <!--<child>
-              <object class="GtkButton" id="save_button">
-                <property name="label">Save entry</property>
+            <child>
+              <object class="GtkLabel" id="text_title">
+                <property name="label">Thawts and feefees</property>
               </object>
-            </child>-->
+            </child>
 
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window">

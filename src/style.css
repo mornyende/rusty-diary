@@ -3,20 +3,40 @@ button.text-button {
   margin-right: 10px;
   margin-left: 10px;
 }
-button.text-button:active {
-  background: magenta;
-}
+/*button.text-button:active {
+  background: @success_bg_color;
+  color: @success_color;
+}*/
 
 scrolledwindow {
   margin-right: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-color: rgba(0, 0, 0, 0);
 }
 
 textview {
-  padding: 5px;
+  padding: 7px;
+  border-radius: 6px;
 }
 
+.entry_label {
+  margin-top: 5px;
+}
+
+calendar {
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.week-number {
+  color: @accent_color;
+}
+
+.today {
+  background: @headerbar_shade_color;
+  box-shadow: none;
+  border-radius: 6px; /* button_radius as per the gnome gitlab */
+}
 /*box.entries {
   margin-top: 10px;
   margin-bottom: 10px;
