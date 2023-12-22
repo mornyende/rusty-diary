@@ -7,6 +7,18 @@ button.text-button {
   background: @success_bg_color;
   color: @success_color;
 }*/
+label.today {
+  box-shadow: none;
+  border-radius: 6px; /* button_radius as per the gnome gitlab */
+}
+
+label:checked {
+  background: alpha(@success_color, 0.3);
+}
+
+label.today:checked {
+  background: alpha(@success_color, 0.6);
+}
 
 scrolledwindow {
   margin-right: 10px;
@@ -32,10 +44,13 @@ calendar {
   color: @accent_color;
 }
 
-.today {
-  background: @headerbar_shade_color;
-  box-shadow: none;
-  border-radius: 6px; /* button_radius as per the gnome gitlab */
+box.darker {
+  background: @view_bg_color;
+}
+
+scale {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 /*box.entries {
   margin-top: 10px;

@@ -7,7 +7,10 @@
 //use gtk::{glib, CssProvider, prelude::*, gdk::Display};
 use gtk::{glib, CssProvider, gdk::Display};
 use adw::prelude::*;
+use std::fs;
 //use adw::subclass::prelude;
+mod cal;
+use cal::DiaryCal;
 const APP_ID: &str = "com.rusty_diary";
 
 fn main() -> glib::ExitCode {
@@ -54,9 +57,12 @@ pub fn build_ui(application: &adw::Application) {
     let text_view = builder
         .object::<gtk::TextView>("text_view")
         .expect("Couldn't get text_view");
-    let _text_view2 = builder
-        .object::<gtk::TextView>("text_view2")
-        .expect("Couldn't get text_view");
+    let sleep_scale = builder
+        .object::<gtk::Scale>("sleep")
+        .expect("Couldn't get scale");
+    sleep_scale.set_range(0.0, 14.0);
+    sleep_scale.add_mark(0.0, gtk::PositionType::Bottom, None);
+    sleep_scale.set_draw_value(true);
     let calendar = builder
         .object::<gtk::Calendar>("calendar")
         .expect("Couldn't get calendar");
@@ -72,7 +78,10 @@ pub fn build_ui(application: &adw::Application) {
         Ok(contents) => text_view.buffer().set_text(&contents),
         Err(_) => text_view.buffer().set_text(&""),
     };
-    //calendar.mark_day(2);
+    //mark_month(&calendar);
+    calendar.mark_month();
+
+
     calendar.connect_day_selected(glib::clone!(@weak window, @weak text_view => move |cal| {
         let date = cal.date().format("%Y.%m.%d").unwrap();
         let file_path = format!("./entries/{}", date);
@@ -81,7 +90,16 @@ pub fn build_ui(application: &adw::Application) {
             Err(_) => text_view.buffer().set_text(&""),
         };
     }));
-    
+
+    calendar.connect_next_month(glib::clone!(@weak window => move |cal| {
+        cal.clear_marks(); cal.mark_month();}));
+    calendar.connect_prev_month(glib::clone!(@weak window => move |cal| {
+        cal.clear_marks(); cal.mark_month();})); 
+    calendar.connect_next_year(glib::clone!(@weak window => move |cal| {
+        cal.clear_marks(); cal.mark_month();}));
+    calendar.connect_prev_year(glib::clone!(@weak window => move |cal| {
+        cal.clear_marks(); cal.mark_month();}));
+
     save_button.connect_clicked(glib::clone!(@weak text_view, @weak calendar => move |_| {
         let _ = update_entry(calendar,text_view); }));
 
@@ -94,5 +112,21 @@ fn update_entry(calendar: gtk::Calendar,text_view: gtk::TextView) -> std::io::Re
         let start = buffer.start_iter();
         let end = buffer.end_iter();
         let entry = buffer.text(&start,&end,true);
-        std::fs::write(format!("./entries/{}", date),entry)
+        calendar.mark_day(calendar.day() as u32);
+        fs::write(format!("./entries/{}", date),entry)
 }
+/*
+fn mark_month(calendar: &gtk::Calendar) {
+    let year = calendar.year();
+    let month = calendar.month();
+    let prefix = format!("{}.{}",year,month+1);
+    let test: Vec<u32> = fs::read_dir(Path::new("entries")).expect("test")
+        .filter_map(Result::ok) 
+        .filter(|entry| entry.file_name().to_str().map_or(false, |s| s.starts_with(&prefix)))
+        .filter_map(|entry| entry.path()
+            .file_name()?.to_str()?.split('.')
+            .last()?.parse::<u32>().ok())
+        .collect(); 
+    let _ = test.iter().for_each(|t| calendar.mark_day(*t));
+    println!("{}",prefix)
+}*/
